@@ -121,6 +121,21 @@
   - Babies should have the ability to play, which persons don't.
   - By playing, a string is returned with some text of your choosing.*/
 
+  function Baby (name, age, favToy) {
+    Person.call(this, name, age);
+    this.favToy = favToy;
+  }
+  Baby.prototype=Object.create(Person.prototype);
+  Baby.prototype.playWithToy = function () {
+    return `I love playing with my ${this.favToy}!`;
+  };
+
+
+  let Tody = new Baby('Tody',2,'Scrabble');
+
+
+
+
 
   /*TASK 4
 
