@@ -51,10 +51,10 @@
     this.age = age;
     this.stomach=[]
   
-  
+  };
 
   Person.prototype.greet = function () {
-    console.log(`Gooday!, I am ${this.name} and I am ${this.age} years old.`);
+    console.log(`Good-day!, I am ${this.name} and I am ${this.age} years old.`);
   };
 
   Person.prototype.eatEdibles = function (food) {
@@ -63,9 +63,9 @@
 
   Person.prototype.poop=function(){
     this.stomach=[];
-  }
+  };
 
-};
+
 
   const tolu = new Person ('Tolu',40);
 
