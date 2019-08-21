@@ -206,15 +206,14 @@ const newCAT = new CAT({
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-function GameObject(createdAt,name,dimensions) {
-  this.createdAt = createdAt;
-  this.name = name;
-  this.dimensions = dimensions;
+function GameObject(test) {
+  this.createdAt = test.createdAt;
+  this.name = test.name;
+  this.dimensions = test.dimensions;
 }
-
 GameObject.prototype.destroy = function(){
-  return `${this.name} was removed from the game.`	    
-};	 
+  return `${this.name} was removed from the game.`;	    
+};	
 
 
 /*
@@ -223,8 +222,9 @@ GameObject.prototype.destroy = function(){
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(healthPoints) {
-  this.healthPoints = healthPoints;
+function CharacterStats(test) {
+  GameObject.call(this, test);
+  this.healthPoints = test.healthPoints;
 }
 CharacterStats.prototype.takeDamage = function(){
   return `${this.name} took damage.`   
@@ -242,16 +242,16 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid(team,weapons,language){
-  this.team=team;
-  this.weapons=weapons;
-  this.language=language;
-}
-CharacterStats.prototype.greet = function(){
-  return `${this.name} offers a greeting in ${this.language}.`	    
+function Humanoid(test){
+  CharacterStats.call(this, test);
+  this.team=test.team;
+  this.weapons=test.weapons;
+  this.language=test.language;
 };
-Humanoid.prototype = Object.create(GameObject.prototype);
-Humanoid.prototype=Object.create(CharacterStats.prototype);
+Humanoid.prototype= Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`;	    
+};
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
