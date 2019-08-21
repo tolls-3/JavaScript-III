@@ -65,12 +65,7 @@
     this.stomach=[];
   };
 
-
-
   const tolu = new Person ('Tolu',40);
-
-
-
 
 
   /*TASK 2
@@ -88,8 +83,6 @@
     this.make= make;
     this.odometer=0;
     this.abilityToDrive=true;
-
-  
   
   Car.prototype.drive = function (distance) {
     this.odometer+=distance;
@@ -106,12 +99,6 @@
 };
 
   const tolu = new Car ('Corolla','Toyota');
-
-
-
-
-
-
 
 
   /*TASK 3
@@ -144,10 +131,63 @@
   complicated one with lots of state. Surprise us!*/
 
 
+function Truck(feat) {
+  this.type = feat.type;
+  this.name = feat.name;
+  this.size = feat.size;
+}
 
-/*
+Truck.prototype.transport = function(location) {
+  console.log(`Shipping ${this.name} to ${location}`);
+};
 
-  STRETCH TASK
+Truck.prototype.calculateSize = function() {
+  console.log(`${this.name} can  contain ${this.size * 100} tonnes.`);
+};
+
+function Ford(fordfeat) {
+  Truck.call(this, fordfeat);
+  this.isItATruck = fordfeat.isItATruck;
+}
+Ford.prototype = Object.create(Truck.prototype);
+
+Ford.prototype.isItATruck = function() {
+  if(this.isItATruck) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function CAT(catfeat) {
+  Truck.call(this, catfeat);
+  this.isItStick = catfeat.isItStick;
+}
+
+CAT.prototype = Object.create(Truck.prototype);
+CAT.prototype.isItStick = function() {
+  if(this.isItStick) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const newFord = new Ford({
+  isItATruck: true,
+  type: 'Truck',
+  name: 'Ford',
+  size: 10
+});
+
+const newCAT = new CAT({
+  isItStick: true,
+  type: 'Truck',
+  name: 'CAT',
+  size: 20
+});
+
+ /* STRETCH TASK
 
   Object oriented design is commonly used in video games. You will be implementing several constructor functions with their correct inheritance hierarchy.
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.
@@ -249,61 +289,3 @@
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 */
 
-function Fruit(attrs) {
-  this.type = attrs.type;
-  this.name = attrs.name;
-  this.isRipe = attrs.isRipe;
-  this.calories = attrs.calories;
-}
-
-Fruit.prototype.shipped = function(destination) {
-  console.log(`Shipping ${this.name} to ${destination}`);
-};
-
-Fruit.prototype.calculateCals = function() {
-  console.log(`Calories in ${this.name} are ${this.calories * 200}`);
-};
-
-function Banana(bananaAttrs) {
-  Fruit.call(this, bananaAttrs);
-  this.doMonkeysLikeIt = bananaAttrs.doMonkeysLikeIt;
-}
-Banana.prototype = Object.create(Fruit.prototype);
-
-Banana.prototype.checkIfMonkeysLikeIt = function() {
-  if(this.doMonkeysLikeIt) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-function Kiwi(kiwiAttrs) {
-  Fruit.call(this, kiwiAttrs);
-  this.isFuzzy = kiwiAttrs.isFuzzy;
-}
-
-Kiwi.prototype = Object.create(Fruit.prototype);
-Kiwi.prototype.checkIfFuzzy = function() {
-  if(this.isFuzzy) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-const newBanana = new Banana({
-  doMonkeysLikeIt: true,
-  type: 'Tree',
-  name: 'Banana',
-  isRipe: false,
-  calories: 0.1
-});
-
-const newKiwi = new Kiwi({
-  isFuzzy: true,
-  type: 'Tree',
-  name: 'Kiwi',
-  isRipe: false,
-  calories: 0.7
-});
