@@ -14,7 +14,7 @@
   SOLUTION CODE:
 
   function Airplane(name) {
-    this.name = name;
+    this.name = Airplane.name;
     this.isFlying = false;
   }
   Airplane.prototype.takeOff = function () {
@@ -35,18 +35,43 @@
   console.log(jumbo.isFlying)          // false
 */
 
-/*
 
-  TASK 1
+
+  /*TASK 1
 
   - Build a Person Constructor that takes name and age.
   - Give persons the ability to greet by returning a string stating name and age.
   - Give persons the ability to eat edibles.
   - When eating an edible, it should be pushed into a "stomach" property which is an array.
   - Give persons the ability to poop.
-  - When pooping, the stomach should empty.
+  - When pooping, the stomach should empty.*/
 
-  TASK 2
+  function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    this.stomach=[]
+  
+  }
+
+  Person.prototype.greet = function () {
+    console.log(`Gooday!, I am ${this.name} and I am ${this.age} years old.`);
+  };
+
+  Person.prototype.eatEdibles = function (food) {
+      this.stomach.push(food);    
+  }
+
+  Person.prototype.poop=function(){
+    this.stomach=[];
+  };
+
+  const tolu = new Person ('Tolu',40);
+
+
+
+
+
+  /*TASK 2
 
   - Build a Car constructor that takes model name and make.
   - Give cars the ability to drive a distance.
@@ -54,22 +79,23 @@
   - Give cars the ability to crash.
   - A crashed car can't be driven any more. Attempts return a string "I crashed at x miles!", x being the miles in the odometer.
   - Give cars the ability to be repaired.
-  - A repaired car can be driven again.
+  - A repaired car can be driven again.*/
 
-  TASK 3
+  /*TASK 3
 
   - Build a Baby constructor that subclasses the Person built earlier.
   - Babies of course inherit the ability to greet, which can be strange.
   - Babies should have the ability to play, which persons don't.
-  - By playing, a string is returned with some text of your choosing.
+  - By playing, a string is returned with some text of your choosing.*/
 
-  TASK 4
+
+  /*TASK 4
 
   Use your imagination and come up with constructors that allow to build objects
   With amazing and original capabilities. Build 3 small ones, or a very
-  complicated one with lots of state. Surprise us!
+  complicated one with lots of state. Surprise us!*/
 
-*/
+
 
 /*
 
@@ -174,3 +200,62 @@
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 */
+
+function Fruit(attrs) {
+  this.type = attrs.type;
+  this.name = attrs.name;
+  this.isRipe = attrs.isRipe;
+  this.calories = attrs.calories;
+}
+
+Fruit.prototype.shipped = function(destination) {
+  console.log(`Shipping ${this.name} to ${destination}`);
+};
+
+Fruit.prototype.calculateCals = function() {
+  console.log(`Calories in ${this.name} are ${this.calories * 200}`);
+};
+
+function Banana(bananaAttrs) {
+  Fruit.call(this, bananaAttrs);
+  this.doMonkeysLikeIt = bananaAttrs.doMonkeysLikeIt;
+}
+Banana.prototype = Object.create(Fruit.prototype);
+
+Banana.prototype.checkIfMonkeysLikeIt = function() {
+  if(this.doMonkeysLikeIt) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function Kiwi(kiwiAttrs) {
+  Fruit.call(this, kiwiAttrs);
+  this.isFuzzy = kiwiAttrs.isFuzzy;
+}
+
+Kiwi.prototype = Object.create(Fruit.prototype);
+Kiwi.prototype.checkIfFuzzy = function() {
+  if(this.isFuzzy) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const newBanana = new Banana({
+  doMonkeysLikeIt: true,
+  type: 'Tree',
+  name: 'Banana',
+  isRipe: false,
+  calories: 0.1
+});
+
+const newKiwi = new Kiwi({
+  isFuzzy: true,
+  type: 'Tree',
+  name: 'Kiwi',
+  isRipe: false,
+  calories: 0.7
+});

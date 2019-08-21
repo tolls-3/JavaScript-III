@@ -43,7 +43,7 @@ person.full();
 
 // code example for New Binding
 
-function Student (name, age, Level) {
+function Student (name, age, level) {
     this.name = name;
     this.age = age;
     this.level =level;
