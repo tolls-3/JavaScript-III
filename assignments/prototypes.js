@@ -135,14 +135,15 @@ function Truck(feat) {
   this.type = feat.type;
   this.name = feat.name;
   this.size = feat.size;
+  this.location=feat.location;
 }
 
-Truck.prototype.transport = function(location) {
-  console.log(`Shipping ${this.name} to ${location}`);
+Truck.prototype.transport = function() {
+  console.log(`The ${this.name} truck is going to ${this.location}`);
 };
 
 Truck.prototype.calculateSize = function() {
-  console.log(`${this.name} can  contain ${this.size * 100} tonnes.`);
+  console.log(`${this.name} can contain ${this.size * 100} tonnes.`);
 };
 
 function Ford(fordfeat) {
@@ -177,14 +178,16 @@ const newFord = new Ford({
   isItATruck: true,
   type: 'Truck',
   name: 'Ford',
-  size: 10
+  size: 10,
+  location:'Lagos'
 });
 
 const newCAT = new CAT({
   isItStick: true,
   type: 'Truck',
   name: 'CAT',
-  size: 20
+  size: 20,
+  location:'Abuja'
 });
 
  /* STRETCH TASK
