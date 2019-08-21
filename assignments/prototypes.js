@@ -206,6 +206,16 @@ const newCAT = new CAT({
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+function GameObject(prop) {
+  this.createdAt = prop.createdAt;
+  this.name = prop.name;
+  this.dimensions = prop.dimensions;
+}
+
+GameObject.prototype.destroy = function(){
+  return '${this.name} was removed from the game.'	    
+};	 
+
 
 /*
   === CharacterStats ===
