@@ -58,7 +58,7 @@
   };
 
   Person.prototype.eatEdibles = function (food) {
-      this.stomach.push(food);    
+      return this.stomach.push(food);    
   }
 
   Person.prototype.poop=function(){
