@@ -81,6 +81,37 @@
   - Give cars the ability to be repaired.
   - A repaired car can be driven again.*/
 
+  function Car(modelName, make) {
+    this.modelName = modelName;
+    this.make= make;
+    this.odometer=0;
+    this.abilityToDrive=true;
+
+  
+  
+  Car.prototype.drive = function (distance) {
+    this.odometer+=distance;
+  }
+
+  Car.prototype.crash = function() {
+    this.abilityToDrive=false;
+    return `I crashed at ${this.odometer} miles`; 
+  }
+
+  Car.prototype.repair=function(){
+    this.abilityToDrive=true;
+  }
+};
+
+  const tolu = new Car ('Corolla','Toyota');
+
+
+
+
+
+
+
+
   /*TASK 3
 
   - Build a Baby constructor that subclasses the Person built earlier.
