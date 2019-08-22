@@ -14,7 +14,7 @@
   SOLUTION CODE:
 
   function Airplane(name) {
-    this.name = name;
+    this.name = Airplane.name;
     this.isFlying = false;
   }
   Airplane.prototype.takeOff = function () {
@@ -35,18 +35,40 @@
   console.log(jumbo.isFlying)          // false
 */
 
-/*
 
-  TASK 1
+
+  /*TASK 1
 
   - Build a Person Constructor that takes name and age.
   - Give persons the ability to greet by returning a string stating name and age.
   - Give persons the ability to eat edibles.
   - When eating an edible, it should be pushed into a "stomach" property which is an array.
   - Give persons the ability to poop.
-  - When pooping, the stomach should empty.
+  - When pooping, the stomach should empty.*/
 
-  TASK 2
+  function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    this.stomach=[]
+  
+  };
+
+  Person.prototype.greet = function () {
+    console.log(`Good-day!, I am ${this.name} and I am ${this.age} years old.`);
+  };
+
+  Person.prototype.eatEdibles = function (food) {
+      return this.stomach.push(food);    
+  }
+
+  Person.prototype.poop=function(){
+    this.stomach=[];
+  };
+
+  const tolu = new Person ('Tolu',40);
+
+
+  /*TASK 2
 
   - Build a Car constructor that takes model name and make.
   - Give cars the ability to drive a distance.
@@ -54,26 +76,121 @@
   - Give cars the ability to crash.
   - A crashed car can't be driven any more. Attempts return a string "I crashed at x miles!", x being the miles in the odometer.
   - Give cars the ability to be repaired.
-  - A repaired car can be driven again.
+  - A repaired car can be driven again.*/
 
-  TASK 3
+  function Car(modelName, make) {
+    this.modelName = modelName;
+    this.make= make;
+    this.odometer=0;
+    this.abilityToDrive=true;
+  
+  Car.prototype.drive = function (distance) {
+    this.odometer+=distance;
+  }
+
+  Car.prototype.crash = function() {
+    this.abilityToDrive=false;
+    return `I crashed at ${this.odometer} miles`; 
+  }
+
+  Car.prototype.repair=function(){
+    this.abilityToDrive=true;
+  }
+};
+
+  const tolu = new Car ('Corolla','Toyota');
+
+
+  /*TASK 3
 
   - Build a Baby constructor that subclasses the Person built earlier.
   - Babies of course inherit the ability to greet, which can be strange.
   - Babies should have the ability to play, which persons don't.
-  - By playing, a string is returned with some text of your choosing.
+  - By playing, a string is returned with some text of your choosing.*/
 
-  TASK 4
+  function Baby (name, age, favToy) {
+    Person.call(this, name, age);
+    this.favToy = favToy;
+  }
+  Baby.prototype=Object.create(Person.prototype);
+  Baby.prototype.playWithToy = function () {
+    return `I love playing with my ${this.favToy}!`;
+  };
+
+
+  let Tody = new Baby('Tody',2,'Scrabble');
+
+
+
+
+
+  /*TASK 4
 
   Use your imagination and come up with constructors that allow to build objects
   With amazing and original capabilities. Build 3 small ones, or a very
-  complicated one with lots of state. Surprise us!
+  complicated one with lots of state. Surprise us!*/
 
-*/
 
-/*
+function Truck(feat) {
+  this.type = feat.type;
+  this.name = feat.name;
+  this.size = feat.size;
+  this.location=feat.location;
+}
 
-  STRETCH TASK
+Truck.prototype.transport = function() {
+  console.log(`The ${this.name} truck is going to ${this.location}`);
+};
+
+Truck.prototype.calculateSize = function() {
+  console.log(`${this.name} can contain ${this.size * 100} tonnes.`);
+};
+
+function Ford(fordfeat) {
+  Truck.call(this, fordfeat);
+  this.isItATruck = fordfeat.isItATruck;
+}
+Ford.prototype = Object.create(Truck.prototype);
+
+Ford.prototype.isItATruck = function() {
+  if(this.isItATruck) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function CAT(catfeat) {
+  Truck.call(this, catfeat);
+  this.isItStick = catfeat.isItStick;
+}
+
+CAT.prototype = Object.create(Truck.prototype);
+CAT.prototype.isItStick = function() {
+  if(this.isItStick) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const newFord = new Ford({
+  isItATruck: true,
+  type: 'Truck',
+  name: 'Ford',
+  size: 10,
+  location:'Lagos'
+});
+
+const newCAT = new CAT({
+  isItStick: true,
+  type: 'Truck',
+  name: 'CAT',
+  size: 20,
+  location:'Abuja'
+});
+
+ /* STRETCH TASK
 
   Object oriented design is commonly used in video games. You will be implementing several constructor functions with their correct inheritance hierarchy.
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.
@@ -89,6 +206,15 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+function GameObject(test) {
+  this.createdAt = test.createdAt;
+  this.name = test.name;
+  this.dimensions = test.dimensions;
+}
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`;	    
+};	
+
 
 /*
   === CharacterStats ===
@@ -96,6 +222,15 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(test) {
+  GameObject.call(this, test);
+  this.healthPoints = test.healthPoints;
+}
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`   
+};
+CharacterStats.prototype = Object.create(GameObject.prototype);
+	 
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -107,6 +242,17 @@
   * should inherit takeDamage() from CharacterStats
 */
 
+function Humanoid(test){
+  CharacterStats.call(this, test);
+  this.team=test.team;
+  this.weapons=test.weapons;
+  this.language=test.language;
+};
+Humanoid.prototype= Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`;	    
+};
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -115,7 +261,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -173,4 +319,5 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
+
